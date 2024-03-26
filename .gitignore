@@ -32,6 +32,6 @@
 *.app
 
 # Paths
-/bin/slproj
+/bin
 /.vscode/
 /realease
