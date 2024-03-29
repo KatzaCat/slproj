@@ -6,7 +6,8 @@
 #include "help.h"
 
 #define ARGUMENT_HELP "-help"
-#define ARGUMENT_CREATE "-c"
+#define ARGUMENT_CREATE_MAKE "-c_make"
+#define ARGUMENT_CREATE_CMAKE "-c_cmake"
 
 int main(int argc, char** argv) {
     // if there are more than 0 arguments
@@ -23,7 +24,7 @@ int main(int argc, char** argv) {
     }
 
     // if the user wants to make a project
-    if(strcmp(argv[1], ARGUMENT_CREATE) == 0) {
+    if(strcmp(argv[1], ARGUMENT_CREATE_MAKE) == 0) {
         // if a name isn't passed
         if ((argc - 1) < 3) {
             std::cout << "Too few arguments passed\n";
@@ -32,10 +33,30 @@ int main(int argc, char** argv) {
         }
         // if we wanna make a c project
         if (strcmp(argv[2], "c") == 0) 
-        {if (!make_c_project(argv[3])) return -1; else return 0;}
+        {if (!make_c_project(argv[3], false)) return -1; else return 0;}
         // if we wanna make a c++ project
         if (strcmp(argv[2], "c++") == 0) 
-        {if (!make_cpp_project(argv[3])) return -1; else return 0;}
+        {if (!make_cpp_project(argv[3], false)) return -1; else return 0;}
+        // neither were passed
+        std::cout << "Required argument [c/c++] not found\n";
+        std::cout << "\tslproj -help" << std::endl;
+        return -1;
+    }
+
+    // if the user wants to make a project
+    if(strcmp(argv[1], ARGUMENT_CREATE_CMAKE) == 0) {
+        // if a name isn't passed
+        if ((argc - 1) < 3) {
+            std::cout << "Too few arguments passed\n";
+            std::cout << "\tslproj -help" << std::endl;
+            return -1;
+        }
+        // if we wanna make a c project
+        if (strcmp(argv[2], "c") == 0) 
+        {if (!make_c_project(argv[3], true)) return -1; else return 0;}
+        // if we wanna make a c++ project
+        if (strcmp(argv[2], "c++") == 0) 
+        {if (!make_cpp_project(argv[3], true)) return -1; else return 0;}
         // neither were passed
         std::cout << "Required argument [c/c++] not found\n";
         std::cout << "\tslproj -help" << std::endl;
